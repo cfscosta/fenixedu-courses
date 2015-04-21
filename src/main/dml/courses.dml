@@ -2,6 +2,7 @@ package org.fenixedu.courses.domain;
 
 class Page {
     String Name;
+    String joinCode;
 }
 
 class Section {
@@ -36,14 +37,14 @@ class Vote {
 }
 
 relation PageOwner {
-    Page playsRole Pages{
+    Page playsRole OwnedPages{
         multiplicity *;
     }
     .org.fenixedu.bennu.core.domain.User playsRole Owner;
 }
 
 relation PageUsers {
-    Page playsRole Page{
+    Page playsRole Pages{
         multiplicity *;
     }
     .org.fenixedu.bennu.core.domain.User playsRole Users{
