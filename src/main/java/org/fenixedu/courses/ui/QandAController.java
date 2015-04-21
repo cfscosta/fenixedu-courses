@@ -4,9 +4,9 @@ import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.spring.portal.SpringApplication;
 import org.fenixedu.bennu.spring.portal.SpringFunctionality;
-import org.fenixedu.courses.domain.Comment;
+import org.fenixedu.courses.domain.Answer;
 import org.fenixedu.courses.domain.Page;
-import org.fenixedu.courses.domain.Post;
+import org.fenixedu.courses.domain.Question;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,28 +25,28 @@ public class QandAController {
         return "courses/home";
     }
 
-    @RequestMapping(value = "/addPost/{courseId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/addQuestion/{courseId}", method = RequestMethod.POST)
     public String addPost(Model model, @PathVariable Page courseId) {
         return "";
     }
 
-    @RequestMapping(value = "/addComment/{courseId}/{postId}", method = RequestMethod.POST)
-    public String addComment(Model model, @PathVariable Page courseId, Post postId) {
+    @RequestMapping(value = "/addAnswer/{courseId}/{postId}", method = RequestMethod.POST)
+    public String addComment(Model model, @PathVariable Page courseId, Question questionId) {
         return "";
     }
 
-    @RequestMapping(value = "/votePost/{courseId}/{postId}", method = RequestMethod.POST)
-    public String votePost(Model model, @PathVariable Page courseId, Post postId) {
+    @RequestMapping(value = "/voteQuestion/{courseId}/{postId}", method = RequestMethod.POST)
+    public String votePost(Model model, @PathVariable Page courseId, Question questionId) {
         return "";
     }
 
-    @RequestMapping(value = "/voteComment/{courseId}/{postId}/{commentId}", method = RequestMethod.POST)
-    public String voteComment(Model model, @PathVariable Page courseId, Post postId, Comment commentId) {
+    @RequestMapping(value = "/voteAnswer/{courseId}/{postId}/{commentId}", method = RequestMethod.POST)
+    public String voteComment(Model model, @PathVariable Page courseId, Question questionId, Answer answerId) {
         return "";
     }
 
-    @RequestMapping(value = "/visitCourse/(courseId}", method = RequestMethod.GET)
-    public String visitCourse(Model model, @PathVariable Page courseId) {
+    @RequestMapping(value = "/visitQuestion/(courseId}", method = RequestMethod.GET)
+    public String visitCourse(Model model, @PathVariable Page courseId, Question questionId) {
         return "";
     }
 
