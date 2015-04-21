@@ -1,0 +1,113 @@
+package org.fenixedu.courses.domain;
+
+class Page {
+    String Name;
+}
+
+class Section {
+    String Name;
+}
+
+class QandA extends Section {
+}
+
+class Post {
+}
+
+class Question extends Post {
+    Integer views;
+}
+
+class Plugin extends Section {
+}
+
+class Comment {
+    String body;
+}
+
+class Answer extends Comment {
+}
+
+class Widget {
+}
+
+class Vote {
+    Boolean up;
+}
+
+relation PageOwner {
+    Page playsRole Pages{
+        multiplicity *;
+    }
+    .org.fenixedu.bennu.core.domain.User playsRole Owner;
+}
+
+relation PageUsers {
+    Page playsRole Page{
+        multiplicity *;
+    }
+    .org.fenixedu.bennu.core.domain.User playsRole Users{
+        multiplicity *;
+    }
+}
+
+relation PageSections {
+    Page playsRole Page;
+    Section playsRole Sections{
+        multiplicity *;
+    }
+}
+
+relation SectionPosts {
+    Post playsRole Posts{
+        multiplicity *;
+    }
+    Section playsRole Sections;
+}
+
+relation SectionWidget {
+    Widget playsRole Widget;
+    Section playsRole Section;
+}
+
+relation PostOwner {
+    Post playsRole Posts{
+        multiplicity *;
+    }
+    .org.fenixedu.bennu.core.domain.User playsRole Owner;
+}
+
+relation PostComment {
+    Post playsRole Post;
+    Comment playsRole Comment{
+        multiplicity *;
+    }
+}
+
+relation CommentOwner {
+    Comment playsRole Comment{
+        multiplicity *;
+    }
+    .org.fenixedu.bennu.core.domain.User playsRole Owner;
+}
+
+relation CommentVote {
+    Comment playsRole Comment;
+    Vote playsRole Vote{
+        multiplicity *;
+    }
+}
+
+relation QuestionVote {
+    Question playsRole Question;
+    Vote playsRole Vote{
+        multiplicity *;
+    }
+}
+
+relation VoteOwner {
+    Vote playsRole Vote{
+        multiplicity *;
+    }
+    .org.fenixedu.bennu.core.domain.User playsRole Owner;
+}
