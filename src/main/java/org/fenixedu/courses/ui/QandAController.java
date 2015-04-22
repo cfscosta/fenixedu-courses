@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@RequestMapping("/courses/page/")
+@RequestMapping("/courses/qanda/")
 @SpringApplication(group = "logged", path = "courses", title = "title.Courses")
 @SpringFunctionality(app = CoursesController.class, title = "title.Courses")
 public class QandAController {

@@ -45,9 +45,4 @@ public class PageController {
         return "";
     }
 
-    @RequestMapping(value = "/visitCourse/(courseId}", method = RequestMethod.GET)
-    public String visitCourse(Model model, @PathVariable Page courseId) {
-        return "";
-    }
-
 }
