@@ -1,6 +1,6 @@
 package org.fenixedu.courses.domain;
 
-class Page {
+class Course {
     String Name;
     String joinCode;
 }
@@ -36,15 +36,15 @@ class Vote {
     Boolean up;
 }
 
-relation PageOwner {
-    Page playsRole OwnedPages{
+relation CourseOwner {
+    Course playsRole OwnedCourses{
         multiplicity *;
     }
     .org.fenixedu.bennu.core.domain.User playsRole Owner;
 }
 
-relation PageUsers {
-    Page playsRole Pages{
+relation CourseUsers {
+    Course playsRole Courses{
         multiplicity *;
     }
     .org.fenixedu.bennu.core.domain.User playsRole Users{
@@ -52,8 +52,8 @@ relation PageUsers {
     }
 }
 
-relation PageSections {
-    Page playsRole Page;
+relation CourseSections {
+    Course playsRole Course;
     Section playsRole Sections{
         multiplicity *;
     }
