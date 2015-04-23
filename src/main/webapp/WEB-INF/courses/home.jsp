@@ -3,11 +3,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<spring:url var="formActionUrl" value="${action}"/>
-
-
-<c:forEach var="page" items="${pages}">
-	<div>PageName: ${page.name}</div>
+<spring:url var="formActionUrl" value="${actionCreate}"/>
+<spring:url var="visitActionUrl" value="${actionVisit}"/>
+${courses}
+<c:forEach var="course" items="${courses}">
+	<div>courseName: ${course.name} <a href="${visitActionUrl}/${course.externalId}">VISITAAAAAR </a></div>
 </c:forEach>
 
 <form:form modelAttribute="coursebean" role="form" method="post" action="${formActionUrl}" enctype="multipart/form-data">

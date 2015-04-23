@@ -25,14 +25,14 @@ public class LobbyController {
     @RequestMapping
     public String home(Model model) {
         User user = Authenticate.getUser();
-        model.addAttribute("action", "/createCourse");
-        model.addAttribute("pages", user.getCoursesSet());
-        model.addAttribute("world", "Worldeee");
+        model.addAttribute("actionCreate", "/courses/createCourse");
+        model.addAttribute("actionVisit", "/courses/visitCourse");
+        model.addAttribute("courses", user.getCoursesSet());
         return "courses/home";
     }
 
-    @RequestMapping(value = "/joinCourse/{courseId}", method = RequestMethod.POST)
-    public String joinCourse(Model model, @PathVariable Course courseId, @ModelAttribute JoinCourseBean coursebean) {
+    @RequestMapping(value = "/joinCourse/{course}", method = RequestMethod.POST)
+    public String joinCourse(@PathVariable Course course, @ModelAttribute JoinCourseBean coursebean, Model model) {
         Course page = FenixFramework.getDomainObject(coursebean.getCourseId());
         if (FenixFramework.isDomainObjectValid(page)) {
             if (page.getExternalId().equals(coursebean.getCouseToken())) {
@@ -41,11 +41,12 @@ public class LobbyController {
                 return home(model);
             }
         }
-        return visitCourse(model, page);
+        return visitCourse(page, model);
     }
 
-    @RequestMapping(value = "/visitCourse/(courseId}", method = RequestMethod.GET)
-    public String visitCourse(Model model, @PathVariable Course courseId) {
+    @RequestMapping(value = "/visitCourse/{course}", method = RequestMethod.GET)
+    public String visitCourse(@PathVariable Course course, Model model) {
+        model.addAttribute("course", course);
         return "courses/view";
     }
 
@@ -67,7 +68,7 @@ public class LobbyController {
     public String createCourse(@ModelAttribute CreateCourseBean coursebean, Model model, BindingResult errors)
             throws UnavailableException {
         Course course = newCourse(coursebean);
-        return visitCourse(model, course);
+        return visitCourse(course, model);
     }
 
 }
