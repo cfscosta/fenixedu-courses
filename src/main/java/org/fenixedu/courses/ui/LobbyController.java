@@ -7,6 +7,7 @@ import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.spring.portal.SpringApplication;
 import org.fenixedu.bennu.spring.portal.SpringFunctionality;
 import org.fenixedu.courses.domain.Course;
+import org.fenixedu.courses.domain.Section;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -61,6 +62,9 @@ public class LobbyController {
         course.setName(coursebean.getName());
         course.setOwner(Authenticate.getUser());
         course.addUsers(Authenticate.getUser());
+        Section section = new Section();
+        section.setName("default");
+        course.addSections(section);
         return course;
     }
 
