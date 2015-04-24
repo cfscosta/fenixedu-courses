@@ -1,8 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <h1>${course.name}</h1>
 
 <c:forEach var="section" items="${course.sections}">
 	<div>sectionName: ${section.name}</div>
+	<div>sectionLenght: ${section.posts}</div>
 	<c:forEach var="post" items="${section.posts}">
 		<div>post: ${post.text}</div>
 	</c:forEach>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.view.RedirectView;
 
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
@@ -69,10 +70,10 @@ public class LobbyController {
     }
 
     @RequestMapping(value = "/createCourse", method = RequestMethod.POST)
-    public String createCourse(@ModelAttribute CreateCourseBean coursebean, Model model, BindingResult errors)
+    public RedirectView createCourse(@ModelAttribute CreateCourseBean coursebean, Model model, BindingResult errors)
             throws UnavailableException {
         Course course = newCourse(coursebean);
-        return visitCourse(course, model);
+        return new RedirectView("/courses/visitCourse/" + course.getExternalId(), true);
     }
 
 }
