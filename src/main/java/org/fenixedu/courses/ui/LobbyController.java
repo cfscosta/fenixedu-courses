@@ -7,7 +7,8 @@ import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.spring.portal.SpringApplication;
 import org.fenixedu.bennu.spring.portal.SpringFunctionality;
 import org.fenixedu.courses.domain.Course;
-import org.fenixedu.courses.domain.Section;
+import org.fenixedu.courses.ui.service.CourseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,13 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
 
-import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 
 @RequestMapping("/courses")
 @SpringApplication(group = "logged", path = "courses", title = "title.Courses")
 @SpringFunctionality(app = LobbyController.class, title = "title.Courses")
 public class LobbyController {
+
+    @Autowired
+    CourseService courseService;
 
     @RequestMapping
     public String home(Model model) {
@@ -57,22 +60,10 @@ public class LobbyController {
         return "courses/create";
     }
 
-    @Atomic
-    public Course newCourse(CreateCourseBean coursebean) {
-        Course course = new Course();
-        course.setName(coursebean.getName());
-        course.setOwner(Authenticate.getUser());
-        course.addUsers(Authenticate.getUser());
-        Section section = new Section();
-        section.setName("default");
-        course.addSections(section);
-        return course;
-    }
-
     @RequestMapping(value = "/createCourse", method = RequestMethod.POST)
     public RedirectView createCourse(@ModelAttribute CreateCourseBean coursebean, Model model, BindingResult errors)
             throws UnavailableException {
-        Course course = newCourse(coursebean);
+        Course course = courseService.newCourse(coursebean);
         return new RedirectView("/courses/visitCourse/" + course.getExternalId(), true);
     }
 
