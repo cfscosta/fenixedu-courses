@@ -46,7 +46,7 @@ public class CourseService {
     @Atomic
     public boolean addPost(@PathVariable Section sectionId, @ModelAttribute PostBean postbean) {
         User user = Authenticate.getUser();
-        if (sectionId.getCourse().equals(user)) {
+        if (sectionId.getCourse().getOwner().equals(user)) {
             sectionId.addPosts(new Post(postbean));
             return true;
         }

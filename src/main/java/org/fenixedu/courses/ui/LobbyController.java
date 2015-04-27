@@ -19,9 +19,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import pt.ist.fenixframework.FenixFramework;
 
-@RequestMapping("/courses")
-@SpringApplication(group = "logged", path = "courses", title = "title.Courses")
+@SpringApplication(group = "anyone", path = "courses", title = "title.Courses", hint = "courses-2.0")
 @SpringFunctionality(app = LobbyController.class, title = "title.Courses")
+@RequestMapping("/lobby")
 public class LobbyController {
 
     @Autowired
@@ -30,8 +30,8 @@ public class LobbyController {
     @RequestMapping
     public String home(Model model) {
         User user = Authenticate.getUser();
-        model.addAttribute("actionCreate", "/courses/createCourse");
-        model.addAttribute("actionVisit", "/courses/visitCourse");
+        model.addAttribute("actionCreate", "/lobby/createCourse");
+        model.addAttribute("actionVisit", "/lobby/visitCourse");
         model.addAttribute("courses", user.getCoursesSet());
         return "courses/home";
     }
@@ -52,6 +52,9 @@ public class LobbyController {
     @RequestMapping(value = "/visitCourse/{course}", method = RequestMethod.GET)
     public String visitCourse(@PathVariable Course course, Model model) {
         model.addAttribute("course", course);
+        model.addAttribute("postbean", new PostBean());
+        model.addAttribute("actionPost", "/courses/addPost");
+        model.addAttribute("actionComment", "/courses/addComment");
         return "courses/view";
     }
 
@@ -64,7 +67,7 @@ public class LobbyController {
     public RedirectView createCourse(@ModelAttribute CreateCourseBean coursebean, Model model, BindingResult errors)
             throws UnavailableException {
         Course course = courseService.newCourse(coursebean);
-        return new RedirectView("/courses/visitCourse/" + course.getExternalId(), true);
+        return new RedirectView("/lobby/visitCourse/" + course.getExternalId(), true);
     }
 
 }

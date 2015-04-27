@@ -2,7 +2,6 @@ package org.fenixedu.courses.ui;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
-import org.fenixedu.bennu.spring.portal.SpringApplication;
 import org.fenixedu.bennu.spring.portal.SpringFunctionality;
 import org.fenixedu.courses.domain.Comment;
 import org.fenixedu.courses.domain.Course;
@@ -15,10 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.view.RedirectView;
 
-@RequestMapping("/courses/page/")
-@SpringApplication(group = "logged", path = "courses", title = "title.Courses")
 @SpringFunctionality(app = LobbyController.class, title = "title.Courses")
+@RequestMapping("/courses")
 public class CourseController {
 
     @Autowired
@@ -39,9 +38,9 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/addPost/{sectionId}", method = RequestMethod.POST)
-    public String addPost(Model model, @PathVariable Section sectionId, @ModelAttribute PostBean postbean) {
+    public RedirectView addPost(Model model, @PathVariable Section sectionId, @ModelAttribute PostBean postbean) {
         courseService.addPost(sectionId, postbean);
-        return "";
+        return new RedirectView("/lobby/visitCourse/" + sectionId.getCourse().getExternalId(), true);
     }
 
     @RequestMapping(value = "/addComment/{postId}", method = RequestMethod.POST)
