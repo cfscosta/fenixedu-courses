@@ -9,7 +9,7 @@ public class Comment extends Comment_Base {
     }
 
     public Comment(CommentBean commentBean) {
-        // TODO Auto-generated constructor stub
+        setBody(commentBean.getContent());
     }
 
 }

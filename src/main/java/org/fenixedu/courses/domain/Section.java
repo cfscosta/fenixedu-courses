@@ -9,7 +9,7 @@ public class Section extends Section_Base {
     }
 
     public Section(SectionBean sectionBean) {
-        // TODO Auto-generated constructor stub
+        setName(sectionBean.getName());
     }
 
 }

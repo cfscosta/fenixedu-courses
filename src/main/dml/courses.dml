@@ -13,6 +13,7 @@ class QandA extends Section {
 }
 
 class Post {
+    String body;
 }
 
 class Question extends Post {
@@ -99,8 +100,8 @@ relation CommentVote {
     }
 }
 
-relation QuestionVote {
-    Question playsRole Question;
+relation PostVote {
+    Post playsRole Post;
     Vote playsRole Vote{
         multiplicity *;
     }

@@ -9,7 +9,6 @@ public class Post extends Post_Base {
     }
 
     public Post(PostBean postbean) {
-        // TODO Auto-generated constructor stub
+        setBody(postbean.getContent());
     }
-
 }

@@ -6,6 +6,7 @@ import org.fenixedu.courses.domain.Comment;
 import org.fenixedu.courses.domain.Course;
 import org.fenixedu.courses.domain.Post;
 import org.fenixedu.courses.domain.Section;
+import org.fenixedu.courses.domain.Vote;
 import org.fenixedu.courses.ui.CommentBean;
 import org.fenixedu.courses.ui.CreateCourseBean;
 import org.fenixedu.courses.ui.PostBean;
@@ -37,8 +38,9 @@ public class CourseService {
         User user = Authenticate.getUser();
         if (courseId.getOwner().equals(user)) {
             courseId.addSections(new Section(sectionBean));
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Atomic
@@ -46,24 +48,37 @@ public class CourseService {
         User user = Authenticate.getUser();
         if (sectionId.getCourse().equals(user)) {
             sectionId.addPosts(new Post(postbean));
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Atomic
     public boolean addComment(Post postId, @ModelAttribute CommentBean commentBean) {
-        postId.addComment(new Comment(commentBean));
-        return true;
+        if (postId.getSections().getCourse().getUsersSet().contains(Authenticate.getUser())) {
+            postId.addComment(new Comment(commentBean));
+            return true;
+        }
+
+        return false;
     }
 
     @Atomic
     public boolean votePost(Post postId, @ModelAttribute VoteBean voteBean) {
-        return true;
+        if (postId.getSections().getCourse().getUsersSet().contains(Authenticate.getUser())) {
+            postId.addVote(new Vote(voteBean));
+            return true;
+        }
+        return false;
     }
 
     @Atomic
     public boolean voteComment(Comment commentId, @ModelAttribute VoteBean voteBean) {
-        return true;
+        if (commentId.getPost().getSections().getCourse().getUsersSet().contains(Authenticate.getUser())) {
+            commentId.addVote(new Vote(voteBean));
+            return true;
+        }
+        return false;
     }
 
 }
