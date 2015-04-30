@@ -5,23 +5,25 @@
 
 <h1>${course.name}</h1>
 <spring:url var="postActionUrl" value="${actionPost}"/>
-<spring:url var="visitActionUrl" value="${actionVisit}"/>
+<spring:url var="commentActionUrl" value="${actionComment}"/>
 <c:forEach var="section" items="${course.sections}">
 	<div>sectionName: ${section.name}</div>
 	<div>sectionLenght: ${section.posts}</div>
 	<c:forEach var="post" items="${section.posts}">
-		<div>post: ${post.body}</div>
+		<div class="col-md-12 bg-info">
+			post: ${post.body}
+			<c:forEach var="comment" items="${post.commentSet}">
+				<p class="bg-warning"> comment: ${comment.body}</p>
+			</c:forEach>
+			<form:form modelAttribute="commentBean" role="form" method="post" action="${commentActionUrl}/${post.externalId}" enctype="multipart/form-data">
+				<form:input placeholder="Commentzz" class="form-control" path="content"></form:input>
+				<button type="submit">SUBMIITZ</button>
+			</form:form>
+		</div>
+		<p class="bg-danger">------------------</p>
 	</c:forEach>
-	<form:form modelAttribute="postbean" role="form" method="post" action="${postActionUrl}/${section.externalId}" enctype="multipart/form-data">
-		<form:input placeholder="What's on your mind, hey teach'?" class="form-control" path="content"></form:input>
+	<form:form modelAttribute="postBean" role="form" method="post" action="${postActionUrl}/${section.externalId}" enctype="multipart/form-data">
+		<form:input placeholder="POSTZZ" class="form-control" path="content"></form:input>
 		<button type="submit">SUBMIITZ</button>
 	</form:form>
-
-		
 </c:forEach>
-
-
-
-
-<div class="col-md-11"></div>
-<div class="col-md-1"><input type="submit"></div>

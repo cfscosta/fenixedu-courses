@@ -52,7 +52,8 @@ public class LobbyController {
     @RequestMapping(value = "/visitCourse/{course}", method = RequestMethod.GET)
     public String visitCourse(@PathVariable Course course, Model model) {
         model.addAttribute("course", course);
-        model.addAttribute("postbean", new PostBean());
+        model.addAttribute("postBean", new PostBean());
+        model.addAttribute("commentBean", new CommentBean());
         model.addAttribute("actionPost", "/courses/addPost");
         model.addAttribute("actionComment", "/courses/addComment");
         return "courses/view";

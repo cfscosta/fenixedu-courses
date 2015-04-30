@@ -32,9 +32,9 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/addSection/{courseId}", method = RequestMethod.POST)
-    public String addSection(Model model, @PathVariable Course courseId, @ModelAttribute SectionBean sectionBean) {
+    public RedirectView addSection(Model model, @PathVariable Course courseId, @ModelAttribute SectionBean sectionBean) {
         courseService.addSection(courseId, sectionBean);
-        return "";
+        return new RedirectView("/lobby/visitCourse/" + courseId.getExternalId(), true);
     }
 
     @RequestMapping(value = "/addPost/{sectionId}", method = RequestMethod.POST)
@@ -44,21 +44,21 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/addComment/{postId}", method = RequestMethod.POST)
-    public String addComment(Model model, Post postId, @ModelAttribute CommentBean commentBean) {
+    public RedirectView addComment(Model model, @PathVariable Post postId, @ModelAttribute CommentBean commentBean) {
         courseService.addComment(postId, commentBean);
-        return "";
+        return new RedirectView("/lobby/visitCourse/" + postId.getSections().getCourse().getExternalId(), true);
     }
 
     @RequestMapping(value = "/votePost/{postId}", method = RequestMethod.POST)
-    public String votePost(Model model, Post postId, @ModelAttribute VoteBean voteBean) {
+    public RedirectView votePost(Model model, @PathVariable Post postId, @ModelAttribute VoteBean voteBean) {
         courseService.votePost(postId, voteBean);
-        return "";
+        return new RedirectView("/lobby/visitCourse/" + postId.getSections().getCourse().getExternalId(), true);
     }
 
     @RequestMapping(value = "/voteComment/{commentId}", method = RequestMethod.POST)
-    public String voteComment(Model model, Comment commentId, @ModelAttribute VoteBean voteBean) {
+    public RedirectView voteComment(Model model, @PathVariable Comment commentId, @ModelAttribute VoteBean voteBean) {
         courseService.voteComment(commentId, voteBean);
-        return "";
+        return new RedirectView("/lobby/visitCourse/" + commentId.getPost().getSections().getCourse().getExternalId(), true);
     }
 
 }
