@@ -20,7 +20,7 @@
 				<button type="submit">SUBMIITZ</button>
 			</form:form>
 		</div>
-		<p class="bg-danger">------------------</p>
+		<p class="bg-info"> - </p>
 	</c:forEach>
 	<form:form modelAttribute="postBean" role="form" method="post" action="${postActionUrl}/${section.externalId}" enctype="multipart/form-data">
 		<form:input placeholder="POSTZZ" class="form-control" path="content"></form:input>

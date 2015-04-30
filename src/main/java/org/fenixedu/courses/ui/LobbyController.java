@@ -32,6 +32,7 @@ public class LobbyController {
         User user = Authenticate.getUser();
         model.addAttribute("actionCreate", "/lobby/createCourse");
         model.addAttribute("actionVisit", "/lobby/visitCourse");
+        model.addAttribute("coursebean", new CreateCourseBean());
         model.addAttribute("courses", user.getCoursesSet());
         return "courses/home";
     }
