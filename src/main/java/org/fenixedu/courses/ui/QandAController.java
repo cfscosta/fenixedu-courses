@@ -20,7 +20,7 @@ public class QandAController {
     @RequestMapping
     public String home(Model model) {
         User user = Authenticate.getUser();
-        model.addAttribute("pages", user.getCoursesSet());
+        model.addAttribute("pages", user.getCourseSet());
         model.addAttribute("world", "Worldeee");
         return "courses/home";
     }

@@ -33,7 +33,7 @@ public class LobbyController {
         model.addAttribute("actionCreate", "/lobby/createCourse");
         model.addAttribute("actionVisit", "/lobby/visitCourse");
         model.addAttribute("coursebean", new CreateCourseBean());
-        model.addAttribute("courses", user.getCoursesSet());
+        model.addAttribute("courses", user.getCourseSet());
         return "courses/home";
     }
 
@@ -42,7 +42,7 @@ public class LobbyController {
         Course page = FenixFramework.getDomainObject(coursebean.getCourseId());
         if (FenixFramework.isDomainObjectValid(page)) {
             if (page.getExternalId().equals(coursebean.getCouseToken())) {
-                page.addUsers(Authenticate.getUser());
+                page.addUser(Authenticate.getUser());
             } else {
                 return home(model);
             }

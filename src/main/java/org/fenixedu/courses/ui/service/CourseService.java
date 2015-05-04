@@ -26,10 +26,10 @@ public class CourseService {
         Course course = new Course();
         course.setName(coursebean.getName());
         course.setOwner(Authenticate.getUser());
-        course.addUsers(Authenticate.getUser());
+        course.addUser(Authenticate.getUser());
         Section section = new Section();
         section.setName("default");
-        course.addSections(section);
+        course.addSection(section);
         return course;
     }
 
@@ -37,7 +37,7 @@ public class CourseService {
     public boolean addSection(@PathVariable Course courseId, @ModelAttribute SectionBean sectionBean) {
         User user = Authenticate.getUser();
         if (courseId.getOwner().equals(user)) {
-            courseId.addSections(new Section(sectionBean));
+            courseId.addSection(new Section(sectionBean));
             return true;
         }
         return false;
@@ -47,7 +47,7 @@ public class CourseService {
     public boolean addPost(@PathVariable Section sectionId, @ModelAttribute PostBean postbean) {
         User user = Authenticate.getUser();
         if (sectionId.getCourse().getOwner().equals(user)) {
-            sectionId.addPosts(new Post(postbean));
+            sectionId.addPost(new Post(postbean));
             return true;
         }
         return false;
@@ -55,7 +55,7 @@ public class CourseService {
 
     @Atomic
     public boolean addComment(Post postId, @ModelAttribute CommentBean commentBean) {
-        if (postId.getSections().getCourse().getUsersSet().contains(Authenticate.getUser())) {
+        if (postId.getSections().getCourse().getUserSet().contains(Authenticate.getUser())) {
             postId.addComment(new Comment(commentBean));
             return true;
         }
@@ -65,7 +65,7 @@ public class CourseService {
 
     @Atomic
     public boolean votePost(Post postId, @ModelAttribute VoteBean voteBean) {
-        if (postId.getSections().getCourse().getUsersSet().contains(Authenticate.getUser())) {
+        if (postId.getSections().getCourse().getUserSet().contains(Authenticate.getUser())) {
             postId.addVote(new Vote(voteBean));
             return true;
         }
@@ -74,7 +74,7 @@ public class CourseService {
 
     @Atomic
     public boolean voteComment(Comment commentId, @ModelAttribute VoteBean voteBean) {
-        if (commentId.getPost().getSections().getCourse().getUsersSet().contains(Authenticate.getUser())) {
+        if (commentId.getPost().getSections().getCourse().getUserSet().contains(Authenticate.getUser())) {
             commentId.addVote(new Vote(voteBean));
             return true;
         }

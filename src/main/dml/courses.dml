@@ -14,6 +14,7 @@ class QandA extends Section {
 
 class Post {
     String body;
+    DateTime created;
 }
 
 class Question extends Post {
@@ -25,6 +26,7 @@ class Plugin extends Section {
 
 class Comment {
     String body;
+    DateTime created;
 }
 
 class Answer extends Comment {
@@ -38,30 +40,30 @@ class Vote {
 }
 
 relation CourseOwner {
-    Course playsRole OwnedCourses{
+    Course playsRole OwnedCourse{
         multiplicity *;
     }
     .org.fenixedu.bennu.core.domain.User playsRole Owner;
 }
 
 relation CourseUsers {
-    Course playsRole Courses{
+    Course playsRole Course{
         multiplicity *;
     }
-    .org.fenixedu.bennu.core.domain.User playsRole Users{
+    .org.fenixedu.bennu.core.domain.User playsRole User{
         multiplicity *;
     }
 }
 
 relation CourseSections {
     Course playsRole Course;
-    Section playsRole Sections{
+    Section playsRole Section{
         multiplicity *;
     }
 }
 
 relation SectionPosts {
-    Post playsRole Posts{
+    Post playsRole Post{
         multiplicity *;
     }
     Section playsRole Sections;
@@ -72,11 +74,11 @@ relation SectionWidget {
     Section playsRole Section;
 }
 
-relation PostOwner {
-    Post playsRole Posts{
+relation PostAuthor {
+    Post playsRole Post{
         multiplicity *;
     }
-    .org.fenixedu.bennu.core.domain.User playsRole Owner;
+    .org.fenixedu.bennu.core.domain.User playsRole Author;
 }
 
 relation PostComment {
@@ -86,11 +88,11 @@ relation PostComment {
     }
 }
 
-relation CommentOwner {
+relation CommentAuthor {
     Comment playsRole Comment{
         multiplicity *;
     }
-    .org.fenixedu.bennu.core.domain.User playsRole Owner;
+    .org.fenixedu.bennu.core.domain.User playsRole Author;
 }
 
 relation CommentVote {
@@ -107,9 +109,9 @@ relation PostVote {
     }
 }
 
-relation VoteOwner {
+relation VoteAuthor {
     Vote playsRole Vote{
         multiplicity *;
     }
-    .org.fenixedu.bennu.core.domain.User playsRole Owner;
+    .org.fenixedu.bennu.core.domain.User playsRole Author;
 }
