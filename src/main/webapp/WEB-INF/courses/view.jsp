@@ -20,7 +20,7 @@
 			</c:forEach>
 			postAuthor: ${post.author.name}
 			<form:form modelAttribute="commentBean" role="form" method="post" action="${commentActionUrl}/${post.externalId}" enctype="multipart/form-data">
-				<form:input placeholder="Commentzz" class="form-control" path="content"></form:input>
+				<form:input type="text" placeholder="Commentzz" class="form-control" path="content" required="required"></form:input>
 				<button type="submit">SUBMIITZ</button>
 			</form:form>
 			
@@ -28,7 +28,7 @@
 		<br/><br/>
 	</c:forEach>
 	<form:form modelAttribute="postBean" role="form" method="post" action="${postActionUrl}/${section.externalId}" enctype="multipart/form-data">
-		<form:input placeholder="POSTZZ" class="form-control" path="content"></form:input>
+		<form:input type="text" placeholder="POSTZZ" class="form-control" path="content" required="required"></form:input>
 		<button type="submit">SUBMIITZ</button>
 	</form:form>
 </c:forEach>
